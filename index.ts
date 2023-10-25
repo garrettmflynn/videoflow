@@ -73,11 +73,12 @@ d3.csv(sceneURI).then(scenes => {
             const url = new URL(contentValue)
             video.src = url.href
             video.controls = false
-            video.autoplay = true
             video.onended = () => {
                 video.src = ''
                 showList(scene)
             }
+            // video.autoplay = true
+            video.play();
         } catch {
             content.innerHTML = contentValue
             showList(scene)
