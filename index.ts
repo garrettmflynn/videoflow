@@ -21,6 +21,7 @@ d3.csv(sceneURI).then(scenes => {
 
     function showList (scene) {
 
+        let isCircular = false
         const nOpts = Object.keys(scene).reduce((acc, key) => {
             
             if (key !== 'ID' && key.includes('ID')) {
@@ -29,7 +30,13 @@ d3.csv(sceneURI).then(scenes => {
                 const id = scene[key]
                 if (!id || !num) return acc
 
+
                 const li = document.createElement('li')
+                if (id === scene.ID) {
+                    isCircular = true
+                    li.classList.add('circular')
+                }
+
                 li.innerText = scene[num]
                 li.onclick = () => update(id)
                 list.appendChild(li)
@@ -39,12 +46,17 @@ d3.csv(sceneURI).then(scenes => {
             return acc
         }, 0)
 
-        if (!nOpts) {
+        const isCircularPage = (nOpts === 1 && isCircular)
+
+        if (!nOpts || isCircularPage) {
+
+            playAgain.innerHTML = isCircularPage ? 'Back to Start' : 'Play Again'
             playAgain.removeAttribute('hidden')
             playAgain.onclick = () => {
                 playAgain.setAttribute('hidden', 'true')
                 update(firstID)
             }
+
         }
     }
 
