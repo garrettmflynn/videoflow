@@ -1,5 +1,5 @@
-name: Build and Deploy — PWA
-run-name: ${{ github.actor }} is building a PWA release
+name: Build and Deploy
+run-name: ${{ github.actor }} is building a Github Pages release
 
 on:
   push:
